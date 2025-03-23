@@ -1,3 +1,5 @@
+add in Aap Project Structure window me hain. Ab aapko Dependencies check karni hogi.
+:androidx.appcompat:appcompat:1.6.1
 MainActivity.kt:
 package com.example.mainactivity  // Ensure this matches your package name)
 

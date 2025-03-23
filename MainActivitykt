@@ -1,0 +1,159 @@
+MainActivity.kt:
+package com.example.mainactivity  // Ensure this matches your package name)
+
+import android.os.Bundle
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import android.widget.TextView
+import android.view.View
+
+
+class MainActivity : AppCompatActivity() {
+
+    var eq: String = ""
+    var pre_eq: String = ""
+    var curr_eq: String = ""
+    var op = 0
+
+    // Declare TextView references
+    lateinit var pre_data: TextView
+    lateinit var curr_data: TextView
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        // Initialize the TextView variables
+        pre_data = findViewById(R.id.pre_data)
+        curr_data = findViewById(R.id.curr_data)
+
+        // Set the initial state
+        pre_data.text = ""
+        curr_data.text = ""
+    }
+
+    // CE button (clear current input)
+    fun ce(view: View) {
+        curr_data.text = ""
+        curr_eq = ""
+    }
+
+    // Clear all data
+    fun clear(view: View) {
+        curr_data.text = ""
+        pre_data.text = ""
+        curr_eq = ""
+        pre_eq = ""
+        op = 0
+    }
+
+    // Remove the last character from the current input
+    fun remove(view: View) {
+        try {
+            curr_eq = curr_eq.substring(0, curr_eq.length - 1)
+            curr_data.text = curr_eq
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    // Generalize calculation logic for all operations
+    fun calculate(view: View, operator: String) {
+        if (op == 0) {
+
+
+
+
+            pre_eq = curr_eq
+            pre_data.text = curr_eq + operator
+            curr_eq = ""
+            curr_data.text = ""
+        } else {
+            try {
+                curr_eq = when (operator) {
+                    "+" -> (pre_eq.toFloat() + curr_eq.toFloat()).toString()
+                    "-" -> (pre_eq.toFloat() - curr_eq.toFloat()).toString()
+                    "*" -> (pre_eq.toFloat() * curr_eq.toFloat()).toString()
+                    "/" -> {
+                        if (curr_eq.toFloat() == 0f) {
+                            curr_data.text = "Error"
+                            return
+                        }
+                        (pre_eq.toFloat() / curr_eq.toFloat()).toString()
+                    }
+                    else -> curr_eq
+                }
+                pre_data.text = curr_eq + operator
+                curr_data.text = ""
+                pre_eq = curr_eq
+                curr_eq = ""
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+        op = when (operator) {
+            "+" -> 1
+            "-" -> 2
+            "*" -> 3
+            "/" -> 4
+            else -> 0
+        }
+    }
+
+    // Define operator methods that call the generalized `calculate` method
+    fun add(view: View) = calculate(view, "+")
+    fun sub(view: View) = calculate(view, "-")
+    fun mul(view: View) = calculate(view, "*")
+    fun divide(view: View) = calculate(view, "/")
+
+    // Equal button to perform the calculation
+    fun equal(view: View) {
+        try {
+            curr_eq = when (op) {
+                1 -> (pre_eq.toFloat() + curr_eq.toFloat()).toString()
+                2 -> (pre_eq.toFloat() - curr_eq.toFloat()).toString()
+                3 -> (pre_eq.toFloat() * curr_eq.toFloat()).toString()
+                4 -> (pre_eq.toFloat() / curr_eq.toFloat()).toString()
+                else -> curr_eq
+            }
+            pre_data.text = curr_eq
+            curr_data.text = ""
+            pre_eq = curr_eq
+            curr_eq = ""
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    // Digit button methods
+    fun one(view: View) { curr_eq += "1"; curr_data.text = curr_eq }
+    fun two(view: View) { curr_eq += "2"; curr_data.text = curr_eq }
+    fun three(view: View) { curr_eq += "3"; curr_data.text = curr_eq }
+    fun four(view: View) { curr_eq += "4"; curr_data.text = curr_eq }
+    fun five(view: View) { curr_eq += "5"; curr_data.text = curr_eq }
+    fun six(view: View) { curr_eq += "6"; curr_data.text = curr_eq }
+    fun seven(view: View) { curr_eq += "7"; curr_data.text = curr_eq }
+    fun eight(view: View) { curr_eq += "8"; curr_data.text = curr_eq }
+    fun nine(view: View) { curr_eq += "9"; curr_data.text = curr_eq }
+    fun zero(view: View) { curr_eq += "0"; curr_data.text = curr_eq }
+
+    // Decimal point button
+    fun pt(view: View) {
+        if (!curr_eq.contains(".")) {
+            curr_eq += "."
+            curr_data.text = curr_eq
+        }
+    }
+
+    // Negative sign button
+    fun min(view: View) {
+        curr_eq = "-$curr_eq"
+        curr_data.text = curr_eq
+    }
+}
+
+
+
+

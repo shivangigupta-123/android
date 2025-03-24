@@ -1,0 +1,149 @@
+1)class and object
+class car
+{
+    var brand = ""
+    var model = ""
+    var year = 0
+}
+
+fun main()
+{
+    val cl = car()
+    cl.brand = "ford"
+    cl.model = "mustong"
+    cl.year = 1969
+    println(cl.brand)
+    println(cl.model)
+    println(cl.year)
+}
+2)return type function
+fun myfunction(x: Int): Int {
+    return x + 5
+}
+
+fun main() {
+    val result = myfunction(3)
+    println(result)
+}
+3)function with parameter another example
+fun myFunction(fname: String, age: Int) {
+    println("$fname age: $age")
+}
+
+fun main() {
+    myFunction("abc", 18)
+}
+4)function with parameter
+fun myFunction(fname: String) {
+    println(fname + "xyz")
+}
+
+fun main() {
+    myFunction("abc")
+}
+5)Constructor
+class Car(var brand: String, var model: String, var year: Int)
+
+fun main() {
+    val cl = Car("Ford", "Mustang", 1969)
+    println(cl.brand)
+    println(cl.model)
+    println(cl.year)
+}
+6) companion object
+class MyClass {
+    companion object {
+        const val value = 42
+    }
+
+    fun fun1() {
+        // Accessing the constant value
+        val value1 = MyClass.value
+        println("Value: $value1")
+    }
+}
+
+fun main() {
+    MyClass().fun1() // This will print the value
+}
+7)
+fun myFunction() {
+    println("hello")
+}
+
+fun main() {
+    myFunction()
+}
+8)default argument
+fun student(name: String = "ABC", age: Int = 15) {
+    println(name)
+    println(age)
+}
+
+fun main() {
+    student("shivangi", 18)
+    student()
+    student("sakshi", 19)
+    student()
+}
+9)public:
+class PublicExample {
+    public var name: String = "Public Variable"  // This is accessible anywhere
+
+    public fun display() {
+        println(name)
+    }
+}
+
+fun main() {
+    val obj = PublicExample()
+    obj.display()  // Accessible anywhere
+}
+2)private:
+class PrivateExample {
+    private var secret: String = "This is private"
+
+    fun revealSecret() {
+        println(secret)  // Allowed because it's inside the class
+    }
+}
+
+fun main() {
+    val obj = PrivateExample()
+    obj.revealSecret()  // Allowed
+    // println(obj.secret)  // ERROR: Cannot access 'secret' as it's private
+}
+3)protacted:
+open class ProtectedExample {
+    protected var data: String = "Protected Data"
+
+    fun showData() {
+        println(data)
+    }
+}
+
+class SubClass : ProtectedExample() {
+    fun accessProtectedData() {
+        println(data)  // Allowed inside subclass
+    }
+}
+
+fun main() {
+    val obj = SubClass()
+    obj.accessProtectedData()  // Works fine
+    // println(obj.data)  // ERROR: 'data' is protected and not accessible outside
+}
+4)internal class:
+internal class InternalExample {
+    internal var info: String = "Internal Data"
+
+    internal fun showInfo() {
+        println(info)
+    }
+}
+
+fun main() {
+    val obj = InternalExample()
+    obj.showInfo()  // Works fine within the same module
+}
+
